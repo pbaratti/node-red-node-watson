@@ -423,7 +423,7 @@ module.exports = function (RED) {
     });
   }
 
-  RED.nodes.registerType('new-watson-translator', SMTNode, {
+  RED.nodes.registerType('watson-translator', SMTNode, {
     credentials: {
       username: {type:'text'},
       password: {type:'password'}

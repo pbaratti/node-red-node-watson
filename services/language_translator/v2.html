@@ -170,14 +170,6 @@
     <p><b>Local</b>  -  Local parametres if the node is used by its own (default value).</p>
     <p><b>Global</b> -  Global parametres if the node is used with the 'language translator util' and 'dropdown' node.
     Global parameters are set when <b>local in unchecked</b>.</p>
-    <p><b>TMX Files</b>.</p>
-    <p>This parameter enables you to create customized models using multiple TMX file types. </p>
-    <p>The type specified in the File Type dropbox of the Training Mode indicates the type of TMX file passed to the node as msg.payload. </p>
-    <p>If you check the Use Local Files checkbox the node will also look for the other two kinds of File types, as files in the local filesystem, and use them for the training if anything found.</p>
-    <p>These files are expected to be named as Base_model.tmx (e.g.: it-en.tmx) in the following subdirectories of the Node-Red home directory:</p>
-    <p>forced_glossary</p>
-    <p>parallel_corpus</p>
-    <p>monolingual_corpus</p>
     <p>For more information about the Language Translator service, read the <a href="https://www.ibm.com/watson/developercloud/doc/language-translator">documentation</a>.</p>
 </script>
 
@@ -696,9 +688,9 @@
             inputs: 1,
             outputs: 1,
             icon: "LanguageTranslator25x25.png",
-            paletteLabel: "watson-translator",
+            paletteLabel: "language translator",
             label: function() {
-                return this.name || "watson-translator";
+                return this.name || "language translator";
             },
             labelStyle: function() {
                 return this.name ? "node_label_italic" : "";
