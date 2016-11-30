@@ -69,18 +69,6 @@ module.exports = function (RED) {
     });
   });
 
-function getTMXfile(type,name) {
-  var TMXfile = '/' + type + '/' + name + '.tmx';
-  var result = undefined;
-  try {
-    fs.accessSync(TMXfile);
-    result = fs.createReadStream(TMXfile);
-    console.log(TMXfile + ' found');
-  } catch (e){
-    console.log(TMXfile + ' not found');
-  }
-  return result;
-}
   // This is the Language Translation Node.
   // The node supports four modes
   //
@@ -234,24 +222,12 @@ function getTMXfile(type,name) {
             switch (filetype) {
             case 'forcedglossary':
               params.forced_glossary = fs.createReadStream(info.path);
-              if (config.localfiles === true) {
-                params.parallel_corpus = getTMXfile('parallel_corpus',model_id);
-                params.monolingual_corpus = getTMXfile('monolingual_corpus',model_id);
-              }
               break;
             case 'parallelcorpus':
               params.parallel_corpus = fs.createReadStream(info.path);
-              if (config.localfiles === true) {
-                params.forced_glossary = getTMXfile('forced_glossary',model_id);
-                params.monolingual_corpus = getTMXfile('monolingual_corpus',model_id);
-              }
               break;
             case 'monolingualcorpus':
               params.monolingual_corpus = fs.createReadStream(info.path);
-              if (config.localfiles === true) {
-                params.parallel_corpus = getTMXfile('parallel_corpus',model_id);
-                params.forced_glossary = getTMXfile('forced_glossary',model_id);
-              }
               break;
             }
 

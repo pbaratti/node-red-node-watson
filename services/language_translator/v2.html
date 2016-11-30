@@ -14,7 +14,7 @@
   limitations under the License.
 -->
 
-<script type="text/x-red" data-template-name="new-watson-translator">
+<script type="text/x-red" data-template-name="watson-translator">
     <div id="credentials-check" class="form-row">
         <div class="form-tips">
             <i class="fa fa-question-circle"></i><b> Please wait: </b> Checking for bound service credentials...
@@ -111,12 +111,6 @@
         <input type="text" id="node-input-trainid" placeholder="Model ID">
     </div>
 
-  <div class="form-row">
-       <label for="node-input-localfiles"><i class="fa fa-book"></i> TMX files</label>
-       <input type="checkbox" id="node-input-localfiles" style="display: inline-block; width: auto; vertical-align: top;">
-       <label for="node-input-localfiles" style="width: 70%;"> Use Local Files</label>
-    </div>
-
     <div class="form-row">
          <label for="node-input-lgparams2"><i class="fa fa-cog"></i> Parameters Scope</label>
          <input type="checkbox" id="node-input-lgparams2" style="display: inline-block; width: auto; vertical-align: top;">
@@ -133,7 +127,7 @@
 
 </script>
 
-<script type="text/x-red" data-help-name="new-watson-translator">
+<script type="text/x-red" data-help-name="watson-translator">
     <p>The Watson Language Translator service enables you to translate text from one language to another and to add your own translation models.</p>
     <p></p>
     <p><b>Translation Mode</b>.</p>
@@ -254,7 +248,6 @@
         $('select#node-input-basemodel').parent().hide();
         $('select#node-input-filetype').parent().hide();
         $('input#node-input-trainid').parent().hide();
-        $('input#node-input-localfiles').parent().hide();
         $('input#node-input-lgparams2').parent().hide();
         $('#languagetranslation-form-tips').show();
     }
@@ -452,7 +445,6 @@
           $('select#node-input-custom').parent().hide();
           $('select#node-input-basemodel, select#node-input-filetype').parent('').hide();
           $('input#node-input-trainid').parent('').hide();
-          $('input#node-input-localfiles').parent().hide();
           $('input#node-input-lgparams2').parent().show();
           $('#languagetranslation-form-tips').show();
           break;
@@ -462,7 +454,6 @@
           $('select#node-input-domain').parent().hide();
           $('select#node-input-basemodel, select#node-input-filetype').parent('').hide();
           $('input#node-input-trainid').parent('').hide();
-          $('input#node-input-localfiles').parent().hide();
           $('input#node-input-lgparams2').parent().show();
           $('#languagetranslation-form-tips').show();
           break;
@@ -472,7 +463,6 @@
           $('select#node-input-domain').parent().hide();
           $('select#node-input-basemodel, select#node-input-filetype').parent('').show();
           $('input#node-input-trainid').parent('').hide();
-          $('input#node-input-localfiles').parent().show();
           $('input#node-input-lgparams2').parent().show();
           $('#languagetranslation-form-tips').show();
           break;
@@ -483,7 +473,6 @@
           $('select#node-input-srclang, select#node-input-destlang').parent().hide();
           $('select#node-input-domain').parent().hide();
           $('select#node-input-basemodel, select#node-input-filetype').parent('').hide();
-          $('input#node-input-localfiles').parent().hide();
           $('input#node-input-lgparams2').parent().show();
           $('#languagetranslation-form-tips').show();
           break;
@@ -678,8 +667,8 @@
 
   // Define and run the function to register this node.
   (function() {
-        RED.nodes.registerType('new-watson-translator', {
-            category: 'Demo',
+        RED.nodes.registerType('watson-translator', {
+            category: 'IBM Watson',
             defaults: {
                 name: {value: ''},
                 action: {value: 'translate'},
@@ -696,7 +685,6 @@
                 customhidden: {value: ''},
                 filetype: {value: 'forcedglossary'},
                 trainid: {value: ''},
-                localfiles: {value: ''},
                 lgparams2: {value: 'lparams'},
                 ldparamshidden2: {value: ''}
             },
@@ -708,9 +696,9 @@
             inputs: 1,
             outputs: 1,
             icon: "LanguageTranslator25x25.png",
-            paletteLabel: "new-watson-translator",
+            paletteLabel: "watson-translator",
             label: function() {
-                return this.name || "new-watson-translator";
+                return this.name || "watson-translator";
             },
             labelStyle: function() {
                 return this.name ? "node_label_italic" : "";
