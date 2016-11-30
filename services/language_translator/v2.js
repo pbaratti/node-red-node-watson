@@ -69,7 +69,18 @@ module.exports = function (RED) {
     });
   });
 
-
+function getTMXfile(type,name) {
+  var TMXfile = type + '/' + name + '.tmx';
+  var result = undefined;
+  try {
+    fs.accessSync(TMXfile);
+    result = fs.createReadStream(TMXfile);
+    console.log(TMXfile + ' found');
+  } catch (e){
+    console.log(TMXfile + ' not found');
+  }
+  return result;
+}
   // This is the Language Translation Node.
   // The node supports four modes
   //
@@ -186,6 +197,8 @@ module.exports = function (RED) {
           text: 'processing data buffer for training request'
         });
 
+        var use_localfiles = config.localfiles;
+
         temp.open({
           suffix: '.xml'
         }, function(err, info) {
@@ -219,15 +232,28 @@ module.exports = function (RED) {
               params.name = msg.filename.replace(/[^0-9a-z]/gi, '');
             }
             params.base_model_id = model_id;
+
             switch (filetype) {
             case 'forcedglossary':
               params.forced_glossary = fs.createReadStream(info.path);
+              if (config.localfiles === true) {
+                params.parallel_corpus = getTMXfile('parallel_corpus',model_id);
+                params.monolingual_corpus = getTMXfile('monolingual_corpus',model_id);
+              }
               break;
             case 'parallelcorpus':
-              params.parallel_corpus = fs.createReadStream(info.path);
+            params.parallel_corpus = fs.createReadStream(info.path);
+            if (config.localfiles === true) {
+              params.forced_glossary = getTMXfile('forced_glossary',model_id);
+              params.monolingual_corpus = getTMXfile('monolingual_corpus',model_id);
+            }
               break;
             case 'monolingualcorpus':
               params.monolingual_corpus = fs.createReadStream(info.path);
+              if (config.localfiles === true) {
+                params.parallel_corpus = getTMXfile('parallel_corpus',model_id);
+                params.forced_glossary = getTMXfile('forced_glossary',model_id);
+              }
               break;
             }
 
@@ -394,6 +420,7 @@ module.exports = function (RED) {
           node.warn('Filetype needs must be set for train mode');
           node.send(msg);
         }
+
         doTrain(msg, basemodel, filetype);
 
         break;
@@ -422,7 +449,7 @@ module.exports = function (RED) {
     });
   }
 
-  RED.nodes.registerType('watson-translator', SMTNode, {
+  RED.nodes.registerType('new-watson-translator', SMTNode, {
     credentials: {
       username: {type:'text'},
       password: {type:'password'}
