@@ -70,7 +70,7 @@ module.exports = function (RED) {
   });
 
 function getTMXfile(type,name) {
-  var TMXfile = type + '/' + name + '.tmx';
+  var TMXfile = '/' + type + '/' + name + '.tmx';
   var result = undefined;
   try {
     fs.accessSync(TMXfile);
@@ -197,8 +197,6 @@ function getTMXfile(type,name) {
           text: 'processing data buffer for training request'
         });
 
-        var use_localfiles = config.localfiles;
-
         temp.open({
           suffix: '.xml'
         }, function(err, info) {
@@ -242,11 +240,11 @@ function getTMXfile(type,name) {
               }
               break;
             case 'parallelcorpus':
-            params.parallel_corpus = fs.createReadStream(info.path);
-            if (config.localfiles === true) {
-              params.forced_glossary = getTMXfile('forced_glossary',model_id);
-              params.monolingual_corpus = getTMXfile('monolingual_corpus',model_id);
-            }
+              params.parallel_corpus = fs.createReadStream(info.path);
+              if (config.localfiles === true) {
+                params.forced_glossary = getTMXfile('forced_glossary',model_id);
+                params.monolingual_corpus = getTMXfile('monolingual_corpus',model_id);
+              }
               break;
             case 'monolingualcorpus':
               params.monolingual_corpus = fs.createReadStream(info.path);
