@@ -70,7 +70,6 @@ module.exports = function (RED) {
   });
 
 function getTMXfile(type,name) {
-  console.log("working dir: " + fs.realpathSync('.'));
   var TMXfile = 'public/' + type + '/' + name + '.tmx';
   var result = undefined;
   try {
