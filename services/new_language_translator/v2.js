@@ -70,7 +70,7 @@ module.exports = function (RED) {
   });
 
 function getTMXfile(type,name) {
-  var TMXfile = './' + type + '/' + name + '.tmx';
+  var TMXfile =  type + '/' + name + '.tmx';
   var result = undefined;
   try {
     fs.accessSync(TMXfile);
