@@ -41,6 +41,7 @@
       "watson-dialog-v1": "services/dialog/v1.js",
       "alchemy_language-v1": "services/alchemy_language/v1.js",
       "watson-language-translator-v2": "services/language_translator/v2.js",
+      "watson-new-language-translator-v2": "services/new_language_translator/v2.js",
       "watson-language-translator-identify-v2": "services/language_translator_identify/v2.js",
       "watson-language-translator-util-v2": "services/language_translator_util/v2.js",
       "watson-language-identification-v1": "/services/language_identification/v1.js",
