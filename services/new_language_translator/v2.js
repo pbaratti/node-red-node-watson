@@ -31,7 +31,8 @@ module.exports = function (RED) {
     sUsername = null,
     sPassword = null,
     service = cfenv.getAppEnv().getServiceCreds(/language translator/i),
-    endpointUrl = 'https://gateway.watsonplatform.net/language-translator/api';
+//  endpointUrl = 'https://gateway.watsonplatform.net/language-translator/api';
+    endpointUrl = 'https://gateway-s.watsonplatform.net/language-translator/api';
 
   temp.track();
 
@@ -40,6 +41,9 @@ module.exports = function (RED) {
     sUsername = service.username;
     sPassword = service.password;
   }
+// Temporary Credentials (these are especially created for this purpose and they are on staging environment)
+  sUsername = "e6f805f1-10f0-4f66-9d5d-bfb171d4077a";
+  sPassword = "smuJZioqdBLx";
 
   // These are APIs that the node has created to allow it to dynamically fetch Bluemix
   // credentials, and also translation models. This allows the node to keep up to
