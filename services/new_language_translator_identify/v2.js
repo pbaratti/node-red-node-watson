@@ -63,8 +63,8 @@ module.exports = function (RED) {
         version: 'v2',
         url: endpointUrl,
         headers: {
-          X-Watson-Learning-Opt-Out: true,
-          X-Watson-Technology-Preview: '2017-07-01'
+          "X-Watson-Learning-Opt-Out": true,
+          "X-Watson-Technology-Preview": '2017-07-01'
         }
       });
 
