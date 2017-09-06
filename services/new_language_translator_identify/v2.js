@@ -22,16 +22,16 @@ module.exports = function (RED) {
     password = null,
     sUsername = null,
     sPassword = null,
-//    endpointUrl = 'https://gateway.watsonplatform.net/language-translator/api';
-    endpointUrl = 'https://gateway-s.watsonplatform.net/language-translator/api';
+    endpointUrl = 'https://gateway.watsonplatform.net/language-translator/api';
+//    endpointUrl = 'https://gateway-s.watsonplatform.net/language-translator/api';
 
   if (service) {
     sUsername = service.username;
     sPassword = service.password;
   }
   // Temporary Credentials (these are especially created for this purpose and they are on staging environment)
-    sUsername = "e6f805f1-10f0-4f66-9d5d-bfb171d4077a";
-    sPassword = "smuJZioqdBLx";
+  //  sUsername = "e6f805f1-10f0-4f66-9d5d-bfb171d4077a";
+  //  sPassword = "smuJZioqdBLx";
 
   RED.httpAdmin.get('/watson-language-translator-identify/vcap', function (req, res) {
     res.json(service ? {bound_service: true} : null);
@@ -61,7 +61,11 @@ module.exports = function (RED) {
         username: username,
         password: password,
         version: 'v2',
-        url: endpointUrl
+        url: endpointUrl,
+        headers: {
+          "X-Watson-Learning-Opt-Out": true,
+          "X-Watson-Technology-Preview:2017-07-01"
+        }
       });
 
       node.status({fill:'blue', shape:'dot', text:'requesting'});

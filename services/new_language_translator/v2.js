@@ -31,8 +31,8 @@ module.exports = function (RED) {
     sUsername = null,
     sPassword = null,
     service = cfenv.getAppEnv().getServiceCreds(/language translator/i),
-//  endpointUrl = 'https://gateway.watsonplatform.net/language-translator/api';
-    endpointUrl = 'https://gateway-s.watsonplatform.net/language-translator/api';
+    endpointUrl = 'https://gateway.watsonplatform.net/language-translator/api';
+//    endpointUrl = 'https://gateway-s.watsonplatform.net/language-translator/api';
 
   temp.track();
 
@@ -42,8 +42,8 @@ module.exports = function (RED) {
     sPassword = service.password;
   }
 // Temporary Credentials (these are especially created for this purpose and they are on staging environment)
-  sUsername = "e6f805f1-10f0-4f66-9d5d-bfb171d4077a";
-  sPassword = "smuJZioqdBLx";
+//  sUsername = "e6f805f1-10f0-4f66-9d5d-bfb171d4077a";
+//  sPassword = "smuJZioqdBLx";
 
   // These are APIs that the node has created to allow it to dynamically fetch Bluemix
   // credentials, and also translation models. This allows the node to keep up to
@@ -60,7 +60,11 @@ module.exports = function (RED) {
       username: sUsername ? sUsername : req.query.un,
       password: sPassword ? sPassword : req.query.pwd,
       version: 'v2',
-      url: endpointUrl
+      url: endpointUrl,
+      headers: {
+        "X-Watson-Learning-Opt-Out": true,
+        "X-Watson-Technology-Preview:2017-07-01"
+      }
     });
 
     lt.getModels({}, function (err, models) {
@@ -120,7 +124,12 @@ function getTMXfile(type,name) {
           username: username,
           password: password,
           version: 'v2',
-          url: endpointUrl
+          url: endpointUrl,
+          headers: {
+            "X-Watson-Learning-Opt-Out": true,
+            "X-Watson-Technology-Preview:2017-07-01"
+          }
+
         });
 
       if (!username || !password) {
